@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgresql://postgres:postgres@localhost:5432/postgres"
 }
 
 model Applicant {
@@ -115,6 +115,7 @@ enum Mission {
   Waterloo
   Oph
   New
+  Nollefilmen
 }
 
 model Interview {

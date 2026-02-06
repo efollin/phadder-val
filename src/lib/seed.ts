@@ -25,12 +25,13 @@ const missionsToEnum: Record<string, Mission> = {
   Regatta: Mission.Regatta,
   Lådbil: Mission.Ladbil,
   Cheer: Mission.Cheer,
-  Waterloo: Mission.Waterloo,
+  Waderloo: Mission.Waterloo,
   Ballongistapult: Mission.Ballongistapult,
   Øverphøshinderbanan: Mission.Oph,
   FlyING: Mission.Flying,
   Nollespex: Mission.Nollespex,
   Showdown: Mission.Showdown,
+  Nollefilmen: Mission.Nollefilmen,
   "Något nytt uppdrag": Mission.New,
 };
 const seedPerson = async (
@@ -38,6 +39,13 @@ const seedPerson = async (
   personRow: string,
 ) => {
   const values = personRow.split("\t");
+  const existingRecords = await prisma.applicant.findMany({
+    where: { name: values[2] },
+    select: { name: true }, // Check if person already in system
+  });
+  if (existingRecords.length > 0) {
+    return;
+  }
   const roles =
     values[5].length > 0
       ? values[5].split(", ").map((role) => rolesToEnum[role])
@@ -46,9 +54,9 @@ const seedPerson = async (
     values[7].length > 0
       ? values[7].split(", ").map((mission) => missionsToEnum[mission])
       : [];
-  console.log(values.slice(13));
-  const friend1Name = values[13] ?? "";
-  const friend2Name = values[14] ?? "";
+  //console.log(values.slice(13));
+  const friend1Name = values[11] ?? "";
+  const friend2Name = values[12] ?? "";
   const friend1 =
     friend1Name.length > 0
       ? await prisma.applicant.findFirst({
@@ -69,13 +77,13 @@ const seedPerson = async (
     data: {
       hasAnsweredExtraForm: true,
       appliedAt: new Date(values[0]),
-      name: values[1],
-      email: values[2].toLowerCase(),
+      name: values[2],
+      email: values[1].toLowerCase(),
       phoneNumber: values[3] ? values[3] : null,
       year: parseInt(values[4]),
       applicantOrderReason: values[6] ? values[6] : null,
-      cantInterviewReason: values[9] ? values[9] : null,
-      otherInfo: values[10] ? values[10] : null,
+      cantInterviewReason: values[10] ? values[10] : null,
+      otherInfo: values[9] ? values[9] : null,
       friend1: friend1
         ? {
             connect: {
@@ -105,14 +113,13 @@ const seedPerson = async (
 };
 
 const seedPeople = async (prisma: PrismaClient) => {
-  return;
   const file = fs.readFileSync(path.resolve(__dirname, "./data/responses.tsv"));
 
   const tsv = file.toString();
   const lines = tsv.split("\n");
   // await prisma.applicantPosition.deleteMany({});
   // await prisma.applicant.deleteMany({});
-  for (const line of lines.slice(1)) {
+  for (const line of lines) {
     await seedPerson(prisma, line);
   }
 };
@@ -135,13 +142,13 @@ const seedNewInterviews = async (prisma: PrismaClient) => {
   }
 };
 const evaluationPostToPosition: Record<string, Position> = {
-  Grupp: Position.Group,
-  Uppdrag: Position.Mission,
-  Huvud: Position.Head,
-  Intisgrupp: Position.InternationalGroup,
-  Intishuvud: Position.InternationalHead,
-  Intisuppdrag: Position.InternationalMission,
-  Plugg: Position.Study,
+  Group: Position.Group,
+  Mission: Position.Mission,
+  Head: Position.Head,
+  InternationalGroup: Position.InternationalGroup,
+  InternationalHead: Position.InternationalHead,
+  InternationalMission: Position.InternationalMission,
+  Study: Position.Study,
 };
 
 const seedEvaluation = async (
@@ -149,6 +156,7 @@ const seedEvaluation = async (
   evaluationRow: string,
 ) => {
   const values = evaluationRow.split("\t");
+  console.log(values[0]);
   const name = values[0];
   const position = values[1];
   const score = values[2]?.trim() ? parseInt(values[2].trim()) : null;
@@ -218,7 +226,7 @@ const seedEvaluations = async (prisma: PrismaClient) => {
 
 export async function seed() {
   // await seedNewInterviews(prismaClient);
-  await seedEvaluations(prismaClient);
+  //await seedEvaluations(prismaClient);
   // await seedInterviewer(prismaClient);
-  //   await seedPeople(prismaClient);
+  await seedPeople(prismaClient); // På ansökningsformuläret
 }

@@ -11,7 +11,7 @@ export const intro = new Paragraph({
       break: 1,
     }),
     new TextRun({
-      text: `Lägg dem i samma mapp med exakta namn på personen, alltså "Ludvig Svedberg.png" typ.`,
+      text: `Lägg dem i samma mapp med exakta namn på personen, alltså "Elias Follin.png" typ.`,
       italics: true,
     }),
     new TextRun({

@@ -1,8 +1,26 @@
 import { prismaClient } from "@/index";
 
 export const load = async () => {
-  const pagination = 4;
+  const pagination = 35;
   const applicants = await prismaClient.applicant.findMany({
+    where: {
+      interviewId: {
+        not: null,
+      },
+    },
+    include: {
+      friend1: true,
+      friend2: true,
+      ApplicantPosition: {
+        where: {
+          score: {
+            gt: 1,
+          },
+        },
+      },
+    },
+  });
+  /*   const applicants = await prismaClient.applicant.findMany({
     where: {
       interviewId: {
         not: null,
@@ -45,7 +63,7 @@ export const load = async () => {
         },
       },
     },
-  });
+  }); */
   const dupedApplicantsWithPosition = applicants.flatMap((applicant) =>
     applicant.ApplicantPosition.map((pos) => ({
       ...applicant,

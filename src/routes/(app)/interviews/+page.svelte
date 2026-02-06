@@ -4,7 +4,7 @@
   import Button from "@/components/ui/button/button.svelte";
 
   export let data;
-  let startTime = "2024-03-18T10:00";
+  let startTime = "2025-02-26T10:00";
   $: endTime = (() => {
     let time = new Date(startTime + ":00Z");
     time = new Date(time.getTime() + 45 * 60 * 1000); // add 45 mmin

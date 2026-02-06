@@ -62,10 +62,10 @@ export const load = async () => {
     body: `Hej ${mail.name.trim()}!
 
 Nu har vi spikat tid för din intervju. Den kommer att äga rum ${weekdays[mail.time.getDay()]} ${mail.time.getDate()}e mars kl ${readableTime(mail.time)} i ${
-      mail.location === "Utskott"
-        ? "Utskott. Det ligger på andra våningen, i högra mittenkorridoren (nära Alfa-Beta-Gamma rummen). Vi kommer lägga upp en video hur man hittar dit på vårt instagram @staben2024"
+      mail.location === "utskott"
+        ? "utskott. Det ligger på andra våningen, i högra mittenkorridoren (nära Alfa-Beta-Gamma rummen). Vi kommer lägga upp en video hur man hittar dit på vårt instagram @2025staben"
         : mail.location
-    }. Vi ser fram emot att träffa dig!
+    }.  Vi ser fram emot att träffa dig!
 
 Vi har lagt denna tiden utanför den/dem tider du skrev i din ansökan att du inte kunde. Om du nu vet att du ABSOLUT inte kan denna tid, svara på detta mail så ska vi se om det går att byta. Men först och främst hade vi uppskattat om du kunde flytta det som krockar då vi försöker sammanställa ett stort antal intervjuer.
 

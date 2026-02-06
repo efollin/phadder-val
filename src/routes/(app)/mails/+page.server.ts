@@ -6,7 +6,7 @@ export const load = async () => {
     where: {
       hasAnsweredExtraForm: false,
       appliedAt: {
-        lt: new Date("2024-03-07 14:08:15"),
+        lt: new Date("2025-02-26 14:08:15"),
       },
       ApplicantPosition: {
         some: {
@@ -28,7 +28,7 @@ export const load = async () => {
     where: {
       hasAnsweredExtraForm: false,
       appliedAt: {
-        lt: new Date("2024-03-07 14:08:15"),
+        lt: new Date("2025-02-26 14:08:15"),
       },
       AND: [
         {
@@ -61,7 +61,7 @@ export const load = async () => {
     where: {
       hasAnsweredExtraForm: false,
       appliedAt: {
-        lt: new Date("2024-03-07 14:08:15"),
+        lt: new Date("2025-02-26 14:08:15"),
       },
       ApplicantPosition: {
         some: {
@@ -81,7 +81,7 @@ export const load = async () => {
     where: {
       hasAnsweredExtraForm: false,
       appliedAt: {
-        lt: new Date("2024-03-07 14:08:15"),
+        lt: new Date("2025-02-26 14:08:15"),
       },
       ApplicantPosition: {
         some: {
@@ -106,7 +106,7 @@ export const load = async () => {
     where: {
       hasAnsweredExtraForm: false,
       appliedAt: {
-        lt: new Date("2024-03-07 14:08:15"),
+        lt: new Date("2025-02-26 14:08:15"),
       },
       ApplicantPosition: {
         some: {

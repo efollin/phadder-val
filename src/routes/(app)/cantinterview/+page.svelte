@@ -33,8 +33,8 @@
         <div class="flex gap-8">
           <form method="post" action="?/setBlock" use:enhance>
             <input type="hidden" name="applicantId" value={applicant.id} />
-            <input type="hidden" name="startTime" value="2024-03-18T00:00:00" />
-            <input type="hidden" name="endTime" value="2024-03-18T00:00:00" />
+            <input type="hidden" name="startTime" value="2025-02-26T00:00:00" />
+            <input type="hidden" name="endTime" value="2025-02-26T00:00:00" />
             <Button type="submit">Add block</Button>
           </form>
           <form method="post" action="?/finish" use:enhance>

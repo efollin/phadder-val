@@ -28,8 +28,9 @@
   // check if image exists
   onMount(async () => {
     try {
+      console.log(imageUrl);
       const response = await fetch(imageUrl);
-      // doesImageExist = response.ok;
+      //doesImageExist = response.ok;
     } catch (error) {
       console.error(error);
     }

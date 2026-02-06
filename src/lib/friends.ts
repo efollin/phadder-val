@@ -17,9 +17,12 @@ const seedFriend = async (
   line: string,
 ) => {
   const values = line.split("\t");
-  console.log(line, values);
-  let [ownerName, friend1Name, friend2Name] =
-    values.length < 3 ? [values[0], values[1], values[2]] : values;
+  //console.log(line, values);
+  let [ownerName, friend1Name, friend2Name] = [
+    values[2],
+    values[11],
+    values[12],
+  ];
   const owner = await prismaClient.applicant.findFirst({
     where: {
       name: {
@@ -32,6 +35,8 @@ const seedFriend = async (
   if (!owner) {
     throw new Error(`Could not find owner ${ownerName}`);
   }
+  console.log(friend1Name);
+  //console.log(friend2Name);
   const friend1 =
     friend1Name && friend1Name.length > 0
       ? await prismaClient.applicant.findFirst({
@@ -58,6 +63,8 @@ const seedFriend = async (
   if (friend2Name && friend2Name.length > 0 && !friend2) {
     throw new Error(`Could not find friend2 ${friend2Name}`);
   }
+  //console.log(friend1);
+  //console.log(friend2);
   if (friend1) {
     await prisma.applicant.update({
       where: {
@@ -89,7 +96,7 @@ const seedFriend = async (
 };
 
 export const seedFriends = async () => {
-  const file = fs.readFileSync(path.resolve(__dirname, "./data/friends.tsv"));
+  const file = fs.readFileSync(path.resolve(__dirname, "./data/responses.tsv"));
 
   const tsv = file.toString();
   const lines = tsv.split("\n");

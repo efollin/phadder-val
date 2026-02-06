@@ -28,15 +28,17 @@ export const similarity = (
   if (a.year === b.year) {
     score += 100;
   } else if (
-    (a.year === 22 && b.year === 21) ||
-    (a.year === 21 && b.year === 22)
+    (a.year === 22 && b.year === 23) ||
+    (a.year === 23 && b.year === 22)
   ) {
     score += 100;
-  } else if (a.year <= 20 && b.year <= 20) {
+  } else if (a.year <= 21 && b.year <= 21) {
     score += 100;
   } else {
     score -= 10000; // should not match at all
   }
+
+  // kan tweaka ovan för att matcha bättre på år
 
   // asked each other
   if (

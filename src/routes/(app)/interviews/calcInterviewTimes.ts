@@ -1,7 +1,7 @@
 import { prismaClient } from "@/index";
 import type { Interviewer } from "@prisma/client";
 
-const days = [18, 19, 20, 21, 22, 23] as const;
+const days = [26, 27, 28, 1, 2, 3, 4, 5] as const;
 const interviewTimes = [
   ["09:00", "09:45"],
   ["09:15", "10:00"],
@@ -35,8 +35,12 @@ const possibleInterviewTimes = async () => {
   const possibleInterviews = await Promise.all(
     days.flatMap((day) =>
       interviewTimes.map(async ([startTime, endTime]) => {
-        const start = new Date(`2024-03-${day}T${startTime}:00Z`);
-        const end = new Date(`2024-03-${day}T${endTime}:00Z`);
+        const start = new Date(
+          `2025-${day >= 26 ? "02" : "03"}-${String(day).padStart(2, "0")}T${startTime}:00Z`,
+        );
+        const end = new Date(
+          `2025-${day >= 26 ? "02" : "03"}-${String(day).padStart(2, "0")}T${endTime}:00Z`,
+        );
         const availableInterviewers = await prismaClient.interviewer.findMany({
           include: {
             cantInterview: true,
@@ -81,8 +85,12 @@ const possibleInterviewTimes = async () => {
           },
         });
         return {
-          start: new Date(`2024-03-${day}T${startTime}:00`),
-          end: new Date(`2024-03-${day}T${endTime}:00`),
+          start: new Date(
+            `2025-${day >= 26 ? "02" : "03"}-${String(day).padStart(2, "0")}T${startTime}:00`,
+          ),
+          end: new Date(
+            `2025-${day >= 26 ? "02" : "03"}-${String(day).padStart(2, "0")}T${endTime}:00`,
+          ),
           availableInterviewers,
           maxConcurrently: Math.min(
             Math.floor(availableInterviewers.length / 3),

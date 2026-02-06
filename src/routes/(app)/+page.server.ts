@@ -2,7 +2,7 @@ import { prismaClient } from "$lib";
 import { seed } from "$lib/seed";
 import { seedFriends } from "@/friends";
 import type { Actions } from "./$types";
-const days = [18, 19, 20, 21, 22, 23, 24];
+const days = [26, 27, 28, 1, 2, 3, 4, 5];
 export const load = async () => {
   const numberOfApplicants = await prismaClient.applicant.count();
   const applicantsByPosition = await prismaClient.applicantPosition.groupBy({
@@ -26,10 +26,14 @@ export const load = async () => {
           cantInterview: {
             none: {
               startTime: {
-                lte: new Date(`2024-03-${day}T09:00:00Z`),
+                lte: new Date(
+                  `2025-${day >= 18 ? "02" : "03"}-${String(day).padStart(2, "0")}T09:00:00Z`,
+                ),
               },
               endTime: {
-                gte: new Date(`2024-03-${day}T19:00:00Z`),
+                gte: new Date(
+                  `2025-${day >= 18 ? "02" : "03"}-${String(day).padStart(2, "0")}T19:00:00Z`,
+                ),
               },
             },
           },
@@ -49,10 +53,14 @@ export const load = async () => {
               cantInterview: {
                 some: {
                   startTime: {
-                    lte: new Date(`2024-03-${day}T00:00:00Z`),
+                    lte: new Date(
+                      `2025-${day >= 18 ? "02" : "03"}-${String(day).padStart(2, "0")}T00:00:00Z`,
+                    ),
                   },
                   endTime: {
-                    gte: new Date(`2024-03-${day + 1}T00:00:00Z`),
+                    gte: new Date(
+                      `2025-${day >= 18 ? "02" : "03"}-${String(day + 1).padStart(2, "0")}T00:00:00Z`,
+                    ),
                   },
                 },
               },

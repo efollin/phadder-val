@@ -27,7 +27,7 @@
     <h2 class="text-xl">Kan hela dagen</h2>
     {#each data.applicantsWhoCanInterviewPerDay as count, day}
       <p>
-        {18 + day}: {count} pers
+        {26 + day <= 28 ? 26 + day : -2 + day}: {count} pers
       </p>
     {/each}
   </section>
@@ -36,7 +36,7 @@
     <h2 class="text-xl">Kan bara</h2>
     {#each data.applicantsWhoCanOnlyInterviewPerDay as applicants, day}
       <p>
-        {18 + day}: {applicants.length} pers:
+        {26 + day <= 28 ? 26 + day : -2 + day}: {applicants.length} pers:
         {#each applicants as applicant}
           {applicant.name}{", "}
         {/each}
